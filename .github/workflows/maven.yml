@@ -31,4 +31,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Build Image
-      run: docker build -t test .
+      run: |
+        echo ${{secrets.DOCKER_TOKEN}} | docker login -u stefanoskappas --password-stdin 
+        docker build -t stefanoskappas/test-2 .
+        docker push stefanoskappas/test-2
